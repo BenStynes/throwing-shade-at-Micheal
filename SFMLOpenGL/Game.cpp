@@ -57,17 +57,19 @@ GLuint	index, //Index to draw
 
 void Game::initialize()
 {
+
 	isRunning = true;
-	GLint isCompiled = 0;
+	
+	glEnable(GL_CULL_FACE);
+
+	GLint isCompiled = 0;	
 	GLint isLinked = 0;
 
 	glewInit();
-	glEnable(GL_CULL_FACE);
 
-	glLoadIdentity();
 	
-	glMatrixMode(GL_MODELVIEW);
-	glTranslatef(0, 0, -8);
+	
+	
 	vertex[0].coordinate[0] = -1.0f;
 	vertex[0].coordinate[1] = -1.0f;
 	vertex[0].coordinate[2] = 1.0f;
@@ -106,59 +108,59 @@ void Game::initialize()
 	vertex[0].color[2] = 0.5f;
 	vertex[0].color[3] = 1.0f;
 
-	vertex[1].color[0] = 0.5f;
-	vertex[1].color[1] = 0.0f;
-	vertex[1].color[2] = 0.5f;
+	vertex[1].color[0] = 1.0f;
+	vertex[1].color[1] = 1.0f;
+	vertex[1].color[2] = 0.3f;
 	vertex[1].color[3] = 1.0f;
 
-	vertex[2].color[0] = 0.5f;
-	vertex[2].color[1] = 0.0f;
-	vertex[2].color[2] = 0.5f;
+	vertex[2].color[0] = 1.0f;
+	vertex[2].color[1] = 1.0f;
+	vertex[2].color[2] = 1.0f;
 	vertex[2].color[3] = 1.0f;
 
 
-	vertex[3].color[0] = 0.5f;
-	vertex[3].color[1] = 0.0f;
-	vertex[3].color[2] = 0.5f;
+	vertex[3].color[0] = 0.25f;
+	vertex[3].color[1] = 0.25f;
+	vertex[3].color[2] = 0.25f;
 	vertex[3].color[3] = 1.0f;
 
 
 	vertex[4].color[0] = 0.5f;
 	vertex[4].color[1] = 0.0f;
-	vertex[4].color[2] = 0.5f;
+	vertex[4].color[2] = 1.0f;
 	vertex[4].color[3] = 1.0f;
 
 
-	vertex[5].color[0] = 0.5f;
-	vertex[5].color[1] = 0.0f;
-	vertex[5].color[2] = 0.5f;
+	vertex[5].color[0] = 1.0f;
+	vertex[5].color[1] = 0.5f;
+	vertex[5].color[2] = 0.2f;
 	vertex[5].color[3] = 1.0f;
 
 
 	vertex[6].color[0] = 0.5f;
-	vertex[6].color[1] = 0.0f;
+	vertex[6].color[1] = 1.0f;
 	vertex[6].color[2] = 0.5f;
 	vertex[6].color[3] = 1.0f;
 
 
 	vertex[7].color[0] = 0.5f;
-	vertex[7].color[1] = 0.0f;
+	vertex[7].color[1] = 0.5f;
 	vertex[7].color[2] = 0.5f;
 	vertex[7].color[3] = 1.0f;
 
 	/*Index of Poly / Triangle to Draw */
-	triangles[0] = 0;   triangles[1] = 1;   triangles[2] = 2;
-	triangles[3] = 2;   triangles[4] = 3;   triangles[5] = 0;
-	triangles[6] = 4;   triangles[7] = 7;   triangles[8] = 6;
-	triangles[9] = 6;   triangles[10] = 5;   triangles[11] = 4;
+	triangles[0] = 1;   triangles[1] = 5;   triangles[2] = 6;
+	triangles[3] = 6;   triangles[4] = 2;   triangles[5] = 1;
+	triangles[6] = 4;   triangles[7] = 0;   triangles[8] = 3;
+	triangles[9] = 3;   triangles[10] = 7;   triangles[11] = 4;
 	triangles[12] = 3;   triangles[13] = 2;   triangles[14] = 6;
 	triangles[15] = 6;   triangles[16] = 7;   triangles[17] = 3;
-	triangles[18] = 4;   triangles[19] = 5;   triangles[20] = 1;
-	triangles[21] = 1;   triangles[22] = 0;   triangles[23] = 4;
-	triangles[24] = 1;   triangles[25] = 5;   triangles[26] = 6;
-	triangles[27] = 6;   triangles[28] = 2;   triangles[29] = 1;
-	triangles[30] = 0;   triangles[31] = 3;   triangles[32] = 7;
-	triangles[33] = 7;   triangles[34] = 4;   triangles[35] = 0;
+	triangles[18] = 0;   triangles[19] = 4;   triangles[20] = 5;
+	triangles[21] = 5;   triangles[22] = 1;   triangles[23] = 0;
+	triangles[24] = 0;   triangles[25] = 1;   triangles[26] = 2;
+	triangles[27] = 2;   triangles[28] = 3;   triangles[29] = 0;
+	triangles[30] = 4;   triangles[31] = 7;   triangles[32] = 6;
+	triangles[33] = 6;   triangles[34] = 5;   triangles[35] = 4;
 
 	for (int i = 0; i < 8; i++)
 	{
@@ -213,7 +215,7 @@ void Game::initialize()
 		"in vec4 color;"
 		"out vec4 fColor;"
 		"void main() {"
-		"	fColor = color + vec4(0.0f, 1.0f, 0.0f, 1.0f);"
+		"	fColor = color + vec4(0.33f, 0.33f, 0.33f, 0.5f);"
 		"}"; //Fragment Shader Src
 
 	DEBUG_MSG("Setting Up Fragment Shader");
@@ -264,7 +266,7 @@ void Game::update()
 {
 	elapsed = clock.getElapsedTime();
 
-	if (elapsed.asSeconds() >= 0.01f)
+	if (elapsed.asSeconds() >= 1.0f/60.0F)
 	{
 		clock.restart();
 
