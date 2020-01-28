@@ -12,6 +12,8 @@
 #include <Vector3.h>
 #include <Matrix3.h>
 
+#include "fileReader.h"
+
 
 
 class Game
@@ -31,10 +33,13 @@ private:
 	sf::Clock clock;
 	sf::Time elapsed;
 
-	float scale{ 50.0f };
+	float scale{ 20.0f };
 	vector3 translation{ 0,0,0 };
 	vector3 rotation{ 0,0,0 };
 	float rotationAngle = 1.0f;
+
+	std::string m_vertexShader;
+	std::string m_fragmentShader;
 };
 
 #endif
